@@ -1,0 +1,9 @@
+Hello,
+My name is Alexandre. I'm tweny-six and I live in Canad. My favorite hobby is programing. Sometimes I spend tooo much tIme into a single program. 
+
+In July, I startd a Haskel cours and I love it. I have a broter and a siSter. We take a buse to go t scool. 
+My birthday is on Friday. I hpoe I will become a good Haskel developper.
+I am loking forward to get an e-mail from you.
+
+Yours,
+Alexadre
