@@ -1,10 +1,10 @@
 module ConnectionHelper where
 
 import qualified Data.Map as Map
-
 -- Custom imports
-import Types ( Username, PasswordHash, Color(..))
-import TerminalMenuHelper ( printToTerminal )
+
+import TerminalMenuHelper (printToTerminal)
+import Types (Color (..), PasswordHash, Username)
 
 -- We do not save the user password. Only the hash of these password are saved in the database.
 userPasswordHashDB :: Map.Map Username PasswordHash
@@ -12,7 +12,8 @@ userPasswordHashDB :: Map.Map Username PasswordHash
 userPasswordHashDB =
   Map.fromList
     [ ("alex", "ifmmpifmmp"), -- username: alex    password : hello
-      ("john", "epfepfepfe") -- username: john    passord : doe)
+      ("john", "epfepfepfe"),
+      ("iburzynski", "ufbdifsufb") -- username: john    passord : doe)
     ]
 
 -- This is a very very simple hashing method. It is not secure at all. The purpose is just to
@@ -28,21 +29,18 @@ connection :: IO Bool
 connection = do
   printToTerminal Blue "\nPlease enter your user name:"
   userName <- getLine
-  
+
   printToTerminal Blue "\nPlease enter your password:"
   passwordInput <- getLine
 
   let isUserConnected = canUserConnect userName passwordInput
   case isUserConnected of
-
-    Just True -> do 
-      printToTerminal Green "\n\nYou are successfully connected" 
+    Just True -> do
+      printToTerminal Green "\n\nYou are successfully connected"
       return True
-
-    Just False ->  do 
+    Just False -> do
       printToTerminal Red "\n\nWrong password, please try again"
       connection
-
     Nothing -> do
       printToTerminal Yellow "\n\nThis username does not exists"
       connection
