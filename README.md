@@ -25,8 +25,66 @@ This correction modes takes what's written in the input.txt file and correct it.
 This is a interactive mode. You write any sentence you want and this sentence will be corrected.
 
 # Correction algorytm
+Grammatical mistakes in the text are found using different correction algorythms.
+The process is pretty simple. 
 
-TODO
+1. Is the word in the dict.txt dictionnary ?
+    - If yes -> No mistakes
+    - If no  -> Continue
+
+
+2. Create a list of all the possible words by replacing 1 char in the word.
+   
+   For example, if we take the word **hoskell** (instead of haskell), we would generate this list -> 
+   
+   ```
+   [aoskell, boskell, coshell, doskell, ..., *haskell*, hbskell, hcskell, hdskell, heskell ...] 
+   ```
+   
+   This is used to find if one of the character has been mispelled when typing.
+
+3. Create a list of all the possible words by adding 1 character in every position of the word.
+   
+   For example, if we take the word **hakell** (instead of haskell), we would generate this list -> 
+   
+   ```
+   [ahakell, bhakell, chakell, dahakell, ..., haakell, hbakell, hcakell, hdakell, heakell, ..., haqkell,  harkell, *haskell*, ...]
+   ```
+   This is to find if one of the character is missing when typing.
+
+4. Create a list of all the possible words by switching 2 characters in every position of the word.
+   
+   For example, if we take the word **hsakell** (instead of haskell), we would generate this list -> 
+   
+    ```
+    [shakell, *haskell*, hskaell, hsaekll hsaklel]
+    ```
+
+This is to find if 2 characters has been erronly switched when typing.
+
+5. Create a list of all possible words with capital letters.
+
+    For example, if we take the word **HASKell**, we would generate this list -> 
+
+    ```
+    [hASKell, HaSKell, HasKell, HASkell] -> No correction found for HASKell
+    ```
+6. Create a list like on step 5 but with possible words with lower capital letters.
+
+7. One the list of all possible words are found, all the ones that are found in the dictionary Dict.txt are possible correction of the word.
+
+
+**Example:**
+
+Input: 
+```
+Alexandre likos hoskell
+```
+
+Output:
+```
+Alexandre likos [likes] hoskell [haskell]
+```
 
 # Limitations
 
