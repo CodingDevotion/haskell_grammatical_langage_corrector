@@ -36,3 +36,13 @@ For example:
 
 - The program does not correct punctuation errors
 - The programs does not detect words that should be singular or plural
+
+# Haskell Version Tested
+
+| Program     | Tested and supported versions |
+| ----------- | ----------------------------- |
+| GHCup       | 0.1.18.0                      |
+| Stack       | 2.9.1                         |
+| HLS         | 1.8.0.0                       |
+| Cabal       | 3.6.2.0                       |
+| GHC         | 9.2.4 (base-4.16.3.0)         |
