@@ -71,7 +71,7 @@ This is to find if 2 characters has been erronly switched when typing.
     ```
 6. Create a list like on step 5 but with possible words with lower capital letters.
 
-7. One the list of all possible words are found, all the ones that are found in the dictionary Dict.txt are possible correction of the word.
+7. We pass trhough all the possible words generation, and all the ones that are found in the dictionary Dict.txt are possible correction of the word. Those corrections will be displayed on the screen and saved in a Map for future access.
 
 
 **Example:**
