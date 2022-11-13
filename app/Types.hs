@@ -1,5 +1,3 @@
-{-# LANGUAGE InstanceSigs #-}
-
 module Types where
 
 -- Imports
@@ -25,25 +23,3 @@ data Correction = Correction
     possibleCorrections :: [Word], -- Empty if isCorrectlyWritten == true
     isPunctuation :: Bool
   }
-
-instance Show Correction where
-  show :: Correction -> String
-  show correction
-    | isCorrectlyWritten correction = surroundStringWithColor Green $ T.unpack (originalWord correction)
-    | otherwise = surroundStringWithColor Red (T.unpack (originalWord correction) ++ surroundStringWithColor Black (" [" ++ T.unpack (T.intercalate ", " (possibleCorrections correction)) ++ "]"))
-
-surroundStringWithColor :: Color -> String -> String
-surroundStringWithColor color textToColorate =
-  colorCode ++ textToColorate ++ colorReset
-  where
-    colorNumber = case color of
-      Black -> 0
-      Red -> 1
-      Green -> 2
-      Yellow -> 3
-      Blue -> 4
-      Magenta -> 5
-      Cyan -> 6
-      White -> 7
-    colorCode = "\x1b[3" ++ show colorNumber ++ "m"
-    colorReset = "\x1b[0m"

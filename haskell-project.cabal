@@ -20,7 +20,7 @@ extra-source-files: ChangeLog.md
 
 executable haskell-project
     main-is:          Main.hs
-    other-modules:    Types, GenerateCorrections, ConnectionHelper, FileReaderHelper, TerminalMenuHelper, CorrectionModes
+    other-modules:    Types, GenerateCorrections, ConnectionHelper, FileReaderHelper, TerminalMenuHelper, CorrectionModes, CorrectionImplementation
 
     default-extensions: OverloadedStrings
     

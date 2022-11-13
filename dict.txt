@@ -23392,6 +23392,7 @@ hashed
 hashes
 hashing
 hashish
+haskell
 hasnt
 hasp
 hassle
@@ -73108,7 +73109,6 @@ Hava
 Haunani
 Hau
 Hassen
-Haskell
 Harpreet
 Haris
 Haralambos

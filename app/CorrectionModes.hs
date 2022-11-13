@@ -8,11 +8,12 @@ import qualified Data.Char as Char
 import Prelude hiding (Word)
 
 -- Custom imports
-import FileReaderHelper
-import GenerateCorrections
-import TerminalMenuHelper
+import FileReaderHelper ( readLinesOfFile )
+import GenerateCorrections ( computeValidCorrectionsInDic )
+import TerminalMenuHelper ( printCorrectionMenu, printToTerminal )
 import Types (Color(..), Word, Correction (Correction, originalWord, isCorrectlyWritten, possibleCorrections, isPunctuation), Sentence)
 import qualified Data.Map as Map
+import CorrectionImplementation
 
 -- Get the option of the user.
 selectCorrectionMode :: IO ()
@@ -25,7 +26,6 @@ selectCorrectionMode = do
     "B" -> startInteractiveCorrection
     "C" -> existCorrection
     _  ->  printToTerminal Red "\n\nInvalid Input. Please try again!\n" <> selectCorrectionMode
-
 
 startInputTxtFileCorrection :: IO ()
 startInputTxtFileCorrection = do
@@ -42,7 +42,6 @@ startInputTxtFileCorrection = do
 
 startInteractiveCorrection :: IO ()
 startInteractiveCorrection = do
-  -- TODO : Function here so we do not have repetition with startInputTxtFileCorrection
   printToTerminal White "Enter a sentence you want to correct \n"
   printToTerminal Blue "   For example: \n"
   printToTerminal Cyan "      Alexandre likos his catz \n"
@@ -63,13 +62,11 @@ existCorrection = do
   printToTerminal White "\n\nThank you for using the Super Duper Grammar corrector!\n"
   printToTerminal Yellow "See you soon!"
 
-
 createCorrectionObject ::HashSet.HashSet Word -> Word -> Correction
 createCorrectionObject wordsDictionary word  
   | word `HashSet.member` wordsDictionary || lowerFirstLetter word `HashSet.member` wordsDictionary = Correction {originalWord = word, isCorrectlyWritten = True, possibleCorrections = [], isPunctuation = False}        -- The word is in the dictionary, then no errors
   | isWordPunctuation word = Correction {originalWord = word, isCorrectlyWritten = True, possibleCorrections = [], isPunctuation = True}
   | otherwise = Correction {originalWord = word, isCorrectlyWritten = False, possibleCorrections = computeValidCorrectionsInDic word wordsDictionary, isPunctuation = False}
-
 
 createSentenceCorrection :: HashSet.HashSet Word -> Sentence -> [(Word, Correction)]
 createSentenceCorrection wordsDictionary = map (\word -> (word, createCorrectionObject wordsDictionary word))
@@ -77,7 +74,6 @@ createSentenceCorrection wordsDictionary = map (\word -> (word, createCorrection
 printCorrectedSentence ::  HashSet.HashSet Word -> Sentence -> IO ()
 printCorrectedSentence  wordsDictionary sentence =
   TIO.putStrLn (T.unwords (fmap (T.pack . show . snd) (createSentenceCorrection wordsDictionary sentence)))
-
 
 separatePuncFromWords :: Word -> Word
 separatePuncFromWords "" = ""
